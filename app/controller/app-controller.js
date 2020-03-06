@@ -2,36 +2,61 @@ const Tweets = require('../moedl/app-model');
 
 
 
-
-exports.getAllTweets = async function (req, res) {
+exports.getTestLiveServer = async function (req, res) {
   try {
-    
-    const response = await fetchTweetsJson();
-    res.send(response);
+
+    res.send({ message: 'server is up' });
   } catch{
     res.send({ response: 'Error' });
   }
   res.end();
 };
 
-exports.getTweetsMoreThan = async function (req, res) {
+
+exports.getAllTweets = async function (req, res) {
   try {
-    console.log('getTweetsMoreThan 1')
-    const query =  Tweets.find({});
-    query.limit(5);
-    query.exec((err, results)=> {
+    console.log('get all data')
+    const query = Tweets.find({});
+    query.limit(500);
+
+    query.exec((err, results) => {
       if (err) {
-        console.log('err in exce rr');
-        
+        console.log('err in all data exce ');
+
         // res.send(err);
-      }else{
-        console.log('getTweetsMoreThan 2',results)
-        
+      } else {
+        console.log('send all data ', results)
+
         res.send(results);
       }
     })
 
-    
+
+  } catch{
+    console.log('err in catch ');
+
+    res.send({ response: 'Error' });
+  }
+};
+
+exports.getTweetsMoreThan = async function (req, res) {
+  try {
+    console.log('getTweetsMoreThan 1')
+    const query = Tweets.find({});
+    query.limit(5);
+    query.exec((err, results) => {
+      if (err) {
+        console.log('err in exce rr');
+
+        // res.send(err);
+      } else {
+        console.log('getTweetsMoreThan 2', results)
+
+        res.send(results);
+      }
+    })
+
+
   } catch{
     console.log('err in catch ');
 
