@@ -17,7 +17,7 @@ exports.getAllTweets = async function (req, res) {
   try {
     console.log('get all data')
     const query = Tweets.find({});
-    query.limit(50);
+    query.limit(100);
 
     query.exec((err, results) => {
       if (err) {
