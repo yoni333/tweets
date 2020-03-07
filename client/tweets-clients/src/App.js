@@ -8,14 +8,14 @@ import './App.css';
 function TweetsChart(props) {
   const tweets = props.tweets
 
-  const chartData = tweets.map(tweet=>[Date.parse(tweet.created_at),tweet.retweet_count])
+  const chartData = tweets.map(tweet=>[Date.parse(tweet.created_at),tweet[props.type]])
   // console.log(tweets)
   if (tweets.length === 0) {
     return null
   } else {
     const options = {
       title: {
-        text: 'Trump Tweets'
+        text: props.title
       },
       xAxis: {
         type: 'datetime',
@@ -73,8 +73,8 @@ class App extends Component {
       <div className="App">
 
 
-
-        <TweetsChart tweets={this.state.tweets} />
+        <TweetsChart tweets={this.state.tweets} type="retweet_count" title="Trump Tweets - retweets"/>
+        <TweetsChart tweets={this.state.tweets} type="favorite_count" title="Trump Tweets - favorite"/>
 
       </div>
     );
