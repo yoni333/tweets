@@ -25,7 +25,7 @@ exports.getAllTweets = async function (req, res) {
 
         // res.send(err);
       } else {
-        console.log('send all data ', results)
+        console.log('send all data ')
 
         res.send(results);
       }
