@@ -7,6 +7,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "codesandbox": "^2.1.12",
     "highcharts": "^8.0.3",
     "highcharts-react-official": "^3.0.0",
     "react": "^16.13.0",
@@ -17,7 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "codesandbox":"codesandbox ./"
   },
   "eslintConfig": {
     "extends": "react-app"
