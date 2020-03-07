@@ -17,7 +17,7 @@ exports.getAllTweets = async function (req, res) {
   try {
     console.log('get all data')
     const query = Tweets.find({});
-    query.limit(100);
+    query.limit(100); //limit it because heroku limited response time
 
     query.exec((err, results) => {
       if (err) {
