@@ -1,26 +1,84 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import axios from 'axios';
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function TweetsChart(props) {
+  const tweets = props.tweets
+
+  const chartData = tweets.map(tweet=>[Date.parse(tweet.created_at),tweet.retweet_count])
+  // console.log(tweets)
+  if (tweets.length === 0) {
+    return null
+  } else {
+    const options = {
+      title: {
+        text: 'Trump Tweets'
+      },
+      xAxis: {
+        type: 'datetime',
+        dateTimeLabelFormats: {
+            day: '%e of %b'
+        }
+    },
+      series: [{
+        type: 'bar',
+        data: chartData,
+        // pointStart: Date.UTC(2010, 0, 1),
+        // pointInterval: 24 * 3600 * 1000 // one day
+      }]
+    }
+
+    return (
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={options}
+      />
+    )
+  }
+}
+class App extends Component {
+  constructor() {
+    super()
+    this.state = { tweets: [] }
+  }
+
+  fetchData() {
+    axios.defaults.baseURL = 'https://rocky-mesa-09234.herokuapp.com';
+
+    const url = '/data';
+    axios.get(url)
+      .then((response) => {
+        // handle success
+        console.log(response);
+        this.setState({ tweets: response.data })
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  }
+  componentDidMount() {
+    this.fetchData()
+  }
+  render() {
+
+   
+    return (
+      <div className="App">
+
+
+
+        <TweetsChart tweets={this.state.tweets} />
+
+      </div>
+    );
+  }
 }
 
 export default App;
